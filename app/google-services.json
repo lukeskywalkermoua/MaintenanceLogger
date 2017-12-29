@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "598882111829",
+    "firebase_url": "https://maintenancelogger-58b6e.firebaseio.com",
+    "project_id": "maintenancelogger-58b6e",
+    "storage_bucket": "maintenancelogger-58b6e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598882111829:android:4b35fba1e9a689d8",
+        "android_client_info": {
+          "package_name": "skywalkerapps.maintenancelogger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598882111829-e9crk2g2v27r856sd3dvromf4ls3hpo5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "skywalkerapps.maintenancelogger",
+            "certificate_hash": "ee317c0c8d3e878776f1f8d34748932a12c21577"
+          }
+        },
+        {
+          "client_id": "598882111829-35m38cgec9784fdvfj40cu7b4vfkkbpv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfklHWmJnzMzBOvhWw3ARtYZBP8edj8vU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598882111829-35m38cgec9784fdvfj40cu7b4vfkkbpv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
