@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MaintenanceLogger</string>
     <string name="button1_name">Click Me</string>
+    <string name="text1_name">Write something.....</string>
 </resources>

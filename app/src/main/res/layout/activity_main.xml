@@ -11,10 +11,24 @@
         android:id="@+id/my_button1"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
         android:text="@string/button1_name"
+        app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:text="@string/text1_name"
+        android:layout_width="290dp"
+        android:layout_height="100dp"
+        android:background="#FFFFFF"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_button1" />
 
 </android.support.constraint.ConstraintLayout>
