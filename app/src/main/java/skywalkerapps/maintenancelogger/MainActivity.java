@@ -19,9 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //Create button variables for each category, make, model, year etc.
-        Button vehicleMakeButton;
-        Button vehicleModelButton;
-        Button vehicleYearButton;
+        Button vehicleSaveButton;
 
         //Create an edit text variable for each category
         //TODO Future update could be to include list of already existing vehicles/equipment
@@ -34,11 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Set the id of the button in xml to the Button variable
-        vehicleMakeButton = findViewById(R.id.my_button1);
+        vehicleSaveButton = findViewById(R.id.save_button);
 
-        vehicleModelButton = findViewById(R.id.my_button2);
-
-        vehicleYearButton = findViewById(R.id.my_button3);
 
         //Set the id of the edit text in xml to the EditText variable
         vehicleMakeEditText = findViewById(R.id.editText1);
@@ -57,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         vehicleYearDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Make").child("Vehicle Model").child("Vehicle Year");
 
         //Button save listener for vehicle make brand) Toyota, Ford, Chevy, etc..
-        vehicleMakeButton.setOnClickListener(new View.OnClickListener() {
+        vehicleSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //When the button is clicked, the real time data is updated
@@ -73,27 +68,14 @@ public class MainActivity extends AppCompatActivity {
                 //@Params string of vehicle make/model/year
                 vehicleMakeDataRef.push().setValue(stringVehicleMake);
 
-            }
-        });
-        //Button save listener for vehicle model
-        vehicleModelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
                 //Gets the vehicle model from user and stores it in a string
                 String stringVehicleModel = vehicleModelEditText.getText().toString().trim();
 
                 vehicleModelDataRef.push().setValue(stringVehicleModel);
 
-            }
-        });
-        //Button save listener for vehicle year
-        vehicleYearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 //Gets the vehicle year from user and stores it in a string
                 String stringVehicleYear = vehicleYearEditText.getText().toString().trim();
-                //Creates a new year for
+                //Pushes new data for vehicle
                 vehicleYearDataRef.push().setValue(stringVehicleYear);
 
             }

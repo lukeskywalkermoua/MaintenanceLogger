@@ -11,7 +11,7 @@
         android:id="@+id/editText1"
         android:layout_width="290dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="430dp"
+        android:layout_marginBottom="150dp"
         android:background="#FFFFFF"
         android:text="@string/make_text"
         android:textAlignment="center"
@@ -26,7 +26,6 @@
         android:id="@+id/editText2"
         android:layout_width="290dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="150dp"
         android:background="#FFFFFF"
         android:text="@string/model_text"
         android:textAlignment="center"
@@ -53,27 +52,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/my_button1"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="95dp"
-        android:text="@string/button_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/my_button2"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="@string/button_save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/my_button3"
+        android:id="@+id/save_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
