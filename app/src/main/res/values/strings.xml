@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MaintenanceLogger</string>
-    <string name="button1_name">Click Me</string>
-    <string name="text1_name">Write something.....</string>
+    <string name="button_save">Save</string>
+    <string name="make_text">Vehicle Make</string>
+    <string name="model_text">Vehicle Model</string>
+    <string name="year_text">Vehicle Year</string>
 </resources>

@@ -7,28 +7,81 @@
     android:background="#000000"
     tools:context="skywalkerapps.maintenancelogger.MainActivity">
 
-    <Button
-        android:id="@+id/my_button1"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:text="@string/button1_name"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="430dp"
+        android:background="#FFFFFF"
+        android:text="@string/make_text"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
-        android:text="@string/text1_name"
+        android:id="@+id/editText2"
         android:layout_width="290dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="150dp"
         android:background="#FFFFFF"
+        android:text="@string/model_text"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="30sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_button1" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
+        android:background="#FFFFFF"
+        android:text="@string/year_text"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/my_button1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95dp"
+        android:text="@string/button_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/my_button2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/my_button3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="370dp"
+        android:text="@string/button_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
