@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">MaintenanceLogger</string>
-    <string name="button_save">Save</string>
-    <string name="make_text">Vehicle Make</string>
-    <string name="model_text">Vehicle Model</string>
-    <string name="year_text">Vehicle Year</string>
+    <string name="app_name">Maintenance Logger</string>
+    <string name="button_save">Save Vehicle Info.</string>
+    <string name="make_text">Vehicle Make...Chevrolet, Toyota, Ford etc.</string>
+    <string name="model_text">Vehicle Model...Camaro, 4Runner, Raptor etc.</string>
+    <string name="year_text">Vehicle Year...1969, 2001, 2018 etc.</string>
+    <string name="nickname_text">Nickname your ride...(optional)</string>
+    <string name="other_description">Other descriptions...(optional)</string>
 </resources>

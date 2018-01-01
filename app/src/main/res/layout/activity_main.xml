@@ -8,6 +8,20 @@
     tools:context="skywalkerapps.maintenancelogger.MainActivity">
 
     <EditText
+        android:id="@+id/editText0"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="80dp"
+        android:background="#FFFFFF"
+        android:hint="@string/nickname_text"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
         android:id="@+id/editText1"
         android:layout_width="290dp"
         android:layout_height="50dp"
@@ -42,23 +56,50 @@
         android:layout_height="50dp"
         android:layout_marginTop="150dp"
         android:background="#FFFFFF"
+        android:hint="@string/year_text"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="15sp"
-        android:hint="@string/year_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="200dp"
+        android:background="#FFFFFF"
+        android:hint="@string/other_description"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/save_button" />
+
     <Button
         android:id="@+id/save_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="400dp"
         android:text="@string/button_save"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="Update/Edit your vehicle"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
