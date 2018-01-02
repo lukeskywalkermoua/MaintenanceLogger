@@ -1,10 +1,12 @@
 package skywalkerapps.maintenancelogger;
 
+import android.graphics.ColorSpace;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,11 +29,17 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference vehicleOtherDataRef;
     private DatabaseReference vehicleNickNameDataRef;
 
+    //Displays short toast message to notify that input cannot be left blank
+    private void makeToast(String myString) {
+        Toast.makeText(this, myString, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //Create button variables for each category, make, model, year etc.
         Button vehicleSaveButton;
+
 
         //Create an edit text variable for each category
         //TODO Future update could be to include list of already existing vehicles/equipment
@@ -59,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         //Edit textbox for other vehicle specs.
         vehicleOtherDescEditText = findViewById(R.id.editText4);
 
-
-
         //Point my data base instance to the direct root of the data app
         //Sets the reference category file to save the data in make/model/Year child data save
 
@@ -86,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         vehicleSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //When the button is clicked, the real time data is updated
                 //Create child in root object
                 //Assign some value to the child object
@@ -93,21 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 //it in a string variable
                 String stringVehicleMake = vehicleMakeEditText.getText().toString().trim();
 
-                //Sets the name of the child to the string when the button is clicked
-                //push() method enables a new child to be created each time button
-                //is clicked (does not overwrite)
-                //@Params string of vehicle make/model/year
-                vehicleMakeDataRef.push().setValue(stringVehicleMake);
-
                 //Gets the vehicle model from user and stores it in a string
                 String stringVehicleModel = vehicleModelEditText.getText().toString().trim();
-                //Saves the string of vehicle model under the Vehicle Model Reference
-                vehicleModelDataRef.push().setValue(stringVehicleModel);
 
                 //Gets the vehicle year from user and stores it in a string
                 String stringVehicleYear = vehicleYearEditText.getText().toString().trim();
-                //Saves the string of vehicle year under Vehicle Year reference
-                vehicleYearDataRef.push().setValue(stringVehicleYear);
 
                 //Gets other descriptions from user and stores it in a string
                 String stringVehicleOther = vehicleOtherDescEditText.getText().toString().trim();
@@ -119,6 +116,39 @@ public class MainActivity extends AppCompatActivity {
                 //Saves the string of nickname under Vehicle Nickname
                 vehicleNickNameDataRef.push().setValue(stringVehicleNickName);
 
+
+                    //Uses boolean string method matches() to check if the
+                    //make, model, and year inputs are empty, and if do loop until
+                    //user makes necessary changes
+                    if (stringVehicleMake.matches("")) {
+                        makeToast("WARNING vehicle make is left empty");
+                    } else {
+                        //Sets the name of the child to the string when the button is clicked
+                        //push() method enables a new child to be created each time button
+                        //is clicked (does not overwrite)
+                        //@Params string of vehicle make/model/year
+                        vehicleMakeDataRef.push().setValue(stringVehicleMake);
+                    }
+                    if (stringVehicleModel.matches("")) {
+                        makeToast("WARNING vehicle model is left empty");
+                    } else {
+                        //Saves the string of vehicle model under the Vehicle Model Reference
+                        vehicleModelDataRef.push().setValue(stringVehicleModel);
+                    }
+                    if (stringVehicleYear.matches("")) {
+                        makeToast("WARNING vehicle year is left empty");
+                    } else {
+                        //Saves the string of vehicle year under Vehicle Year reference
+                        vehicleYearDataRef.push().setValue(stringVehicleYear);
+                    }
+                    //If user decides not to use nickname for vehicle, give hint toast message and
+                    //notify that info. is saved. Else, notify that vehicle with nickname _______ is saved...
+                    if (stringVehicleNickName.matches("")) {
+                        makeToast("You can always change vehicle info. later");
+                        makeToast("Created " + stringVehicleYear + " " + stringVehicleMake + " " + stringVehicleModel);
+                    } else {
+                        makeToast("Created " + stringVehicleNickName);
+                    }
             }
         });
 
