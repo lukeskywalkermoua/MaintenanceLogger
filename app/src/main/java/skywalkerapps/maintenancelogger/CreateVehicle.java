@@ -1,6 +1,6 @@
 package skywalkerapps.maintenancelogger;
 
-import android.graphics.ColorSpace;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * Date: 01/01/2018
  */
 
-public class MainActivity extends AppCompatActivity {
+public class CreateVehicle extends AppCompatActivity {
 
     //Create a database instance
     private DatabaseReference vehicleMakeDataRef;
@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference vehicleYearDataRef;
     private DatabaseReference vehicleOtherDataRef;
     private DatabaseReference vehicleNickNameDataRef;
+
+    private DatabaseReference numOfVehiclesDataRef;
 
     //Displays short toast message to notify that input cannot be left blank
     private void makeToast(String myString) {
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Create an edit text variable for each category
-        //TODO Future update could be to include list of already existing vehicles/equipment
+        //TODO Future update could be to include list of existing vehicles/equipment
         //and then just allow user to pick from existing options
         final EditText vehicleMakeEditText;
         final EditText vehicleModelEditText;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText vehicleNickNameEditText;
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_createvehicle);
 
         //Set the id of the button in xml to the Button variable
         vehicleSaveButton = findViewById(R.id.save_button);
@@ -87,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
         //Saves the custom vehicle description under Make/Model/Year/Other
         vehicleOtherDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Nickname").child("Vehicle Make")
                 .child("Vehicle Model").child("Vehicle Year").child("Other Descriptions");
+
+
+        numOfVehiclesDataRef = FirebaseDatabase.getInstance().getReference().child("NumberOfVehicles");
 
         //Button save listener for vehicle make brand) Toyota, Ford, Chevy, etc..
         vehicleSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +154,13 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         makeToast("Created " + stringVehicleNickName);
                     }
+                numOfVehiclesDataRef.child("NumberOfVehicles").setValue(5);
+
+                    if(numOfVehiclesDataRef.child("NumberOfVehicles").equals(5)) {
+                        makeToast("IT WORKS");
+                    }
+
+                    finish();
             }
         });
 

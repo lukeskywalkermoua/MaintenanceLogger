@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="skywalkerapps.maintenancelogger.MainActivity">
+    tools:context="skywalkerapps.maintenancelogger.CreateVehicle">
 
     <EditText
         android:id="@+id/editText0"
