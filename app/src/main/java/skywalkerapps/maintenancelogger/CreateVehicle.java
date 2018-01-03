@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
+/** 
  * Main class that saves user input such as
  * logging new vehicles/updating vehicle info.
  * and storing it to the real time data Firebase
