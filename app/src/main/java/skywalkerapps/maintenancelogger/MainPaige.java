@@ -2,6 +2,8 @@ package skywalkerapps.maintenancelogger;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -11,10 +13,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Main page of the maintenance app
- * allows users
+ * allows users to view created vehicles
  * Created by Luke Moua on 1/1/2018.
  */
 
@@ -53,9 +56,11 @@ public class MainPaige extends AppCompatActivity{
             //When a new child is created, this code runs
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.getValue(String.class);
-                //Add the new string to the array list
+
                 if(value.matches("")) {
+                    //If the nick name is empty/null do nothing
                 } else {
+                    //If a valid nick name is entered, add it to the list
                     myVehiclesArrayList.add(value);
                     //Update the data when it changes
                     arrayAdapter.notifyDataSetChanged();
@@ -83,6 +88,15 @@ public class MainPaige extends AppCompatActivity{
             }
         });
 
+        //Whenever the user clicks a vehicle on the list, code inside here runs
+        //TODO transition to a page where the user can see information about this vehicle
+        //TODO whenever the vehicle name in the list is clicked
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainPaige.this, "You clicked a vehicle", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
