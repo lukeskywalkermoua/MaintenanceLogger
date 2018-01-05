@@ -6,4 +6,5 @@
     <string name="year_text">Vehicle Year...1969, 2001, 2018 etc.</string>
     <string name="nickname_text">Nickname your ride...(optional)</string>
     <string name="other_description">Other descriptions...(optional)</string>
+    <string name="listview_title">Vehicle List</string>
 </resources>

@@ -1,6 +1,6 @@
 package skywalkerapps.maintenancelogger;
 
-import android.provider.ContactsContract;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/** 
+/**
  * Main class that saves user input such as
  * logging new vehicles/updating vehicle info.
  * and storing it to the real time data Firebase
@@ -29,8 +29,6 @@ public class CreateVehicle extends AppCompatActivity {
     private DatabaseReference vehicleOtherDataRef;
     private DatabaseReference vehicleNickNameDataRef;
 
-    private DatabaseReference numOfVehiclesDataRef;
-
     //Displays short toast message to notify that input cannot be left blank
     private void makeToast(String myString) {
         Toast.makeText(this, myString, Toast.LENGTH_SHORT).show();
@@ -40,7 +38,9 @@ public class CreateVehicle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //Create button variables for each category, make, model, year etc.
-        Button vehicleSaveButton;
+        final Button vehicleSaveButton;
+
+        final Button viewMyListButton;
 
 
         //Create an edit text variable for each category
@@ -53,10 +53,13 @@ public class CreateVehicle extends AppCompatActivity {
         final EditText vehicleNickNameEditText;
 
         super.onCreate(savedInstanceState);
+        //Code implements activity_createvehicle.xml file
         setContentView(R.layout.activity_createvehicle);
 
-        //Set the id of the button in xml to the Button variable
+        //Set the id of save button in xml to the Button variable
         vehicleSaveButton = findViewById(R.id.save_button);
+        //Set id of transition activity button in xml to Button variable
+        viewMyListButton = findViewById(R.id.button2);
 
         //Edit text box for nick name
         vehicleNickNameEditText = findViewById(R.id.editText0);
@@ -72,26 +75,32 @@ public class CreateVehicle extends AppCompatActivity {
         //Point my data base instance to the direct root of the data app
         //Sets the reference category file to save the data in make/model/Year child data save
 
-        //Saves the vehicle nick name under Make/Model/Year/Other/Nickname
-        vehicleNickNameDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Nickname");
+        //Saves the vehicle nick name under main database default reference
+        vehicleNickNameDataRef = FirebaseDatabase.getInstance().getReference();
         //Saves Vehicle Make(brand) under Make
-        vehicleMakeDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Nickname")
-                .child("Vehicle Make");
+        vehicleMakeDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Make");
 
         //Saves Vehicle Model under Make/Model
-        vehicleModelDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Nickname")
-                .child("Vehicle Make").child("Vehicle Model");
+        vehicleModelDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Make").child("Vehicle Model");
 
         //Saves Vehicle year under Make/Model/Year
         vehicleYearDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Nickname")
                 .child("Vehicle Make").child("Vehicle Model").child("Vehicle Year");
 
         //Saves the custom vehicle description under Make/Model/Year/Other
-        vehicleOtherDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Nickname").child("Vehicle Make")
+        vehicleOtherDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Make")
                 .child("Vehicle Model").child("Vehicle Year").child("Other Descriptions");
 
-
-        numOfVehiclesDataRef = FirebaseDatabase.getInstance().getReference().child("NumberOfVehicles");
+        //Button Listener that allows switches to the next activity to
+        //view existing registered vehicles
+        viewMyListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Switches from CreateVehicle activity to MainPaige activity
+                Intent myIntent = new Intent(CreateVehicle.this, MainPaige.class);
+                startActivity(myIntent);
+            }
+        });
 
         //Button save listener for vehicle make brand) Toyota, Ford, Chevy, etc..
         vehicleSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +112,7 @@ public class CreateVehicle extends AppCompatActivity {
                 //Assign some value to the child object
                 //Retrieve the input text from the user and store
                 //it in a string variable
+                /**
                 String stringVehicleMake = vehicleMakeEditText.getText().toString().trim();
 
                 //Gets the vehicle model from user and stores it in a string
@@ -115,7 +125,7 @@ public class CreateVehicle extends AppCompatActivity {
                 String stringVehicleOther = vehicleOtherDescEditText.getText().toString().trim();
                 //Saves the string of Other desc. under Other Descriptions
                 vehicleOtherDataRef.push().setValue(stringVehicleOther);
-
+                **/
                 //Gets nickname from user and stores it in string variable
                 String stringVehicleNickName = vehicleNickNameEditText.getText().toString().trim();
                 //Saves the string of nickname under Vehicle Nickname
@@ -125,6 +135,7 @@ public class CreateVehicle extends AppCompatActivity {
                     //Uses boolean string method matches() to check if the
                     //make, model, and year inputs are empty, and if do loop until
                     //user makes necessary changes
+                /**
                     if (stringVehicleMake.matches("")) {
                         makeToast("WARNING vehicle make is left empty");
                     } else {
@@ -154,13 +165,7 @@ public class CreateVehicle extends AppCompatActivity {
                     } else {
                         makeToast("Created " + stringVehicleNickName);
                     }
-                numOfVehiclesDataRef.child("NumberOfVehicles").setValue(5);
-
-                    if(numOfVehiclesDataRef.child("NumberOfVehicles").equals(5)) {
-                        makeToast("IT WORKS");
-                    }
-
-                    finish();
+                 **/
             }
         });
 
