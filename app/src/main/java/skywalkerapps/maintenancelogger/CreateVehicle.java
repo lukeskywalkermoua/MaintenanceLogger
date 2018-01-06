@@ -76,20 +76,18 @@ public class CreateVehicle extends AppCompatActivity {
         //Sets the reference category file to save the data in make/model/Year child data save
 
         //Saves the vehicle nick name under main database default reference
-        vehicleNickNameDataRef = FirebaseDatabase.getInstance().getReference();
+        vehicleNickNameDataRef = FirebaseDatabase.getInstance().getReference().child("Nickname");
         //Saves Vehicle Make(brand) under Make
         vehicleMakeDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Make");
 
         //Saves Vehicle Model under Make/Model
-        vehicleModelDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Make").child("Vehicle Model");
+        vehicleModelDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Model");
 
         //Saves Vehicle year under Make/Model/Year
-        vehicleYearDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Nickname")
-                .child("Vehicle Make").child("Vehicle Model").child("Vehicle Year");
+        vehicleYearDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Year");
 
         //Saves the custom vehicle description under Make/Model/Year/Other
-        vehicleOtherDataRef = FirebaseDatabase.getInstance().getReference().child("Vehicle Make")
-                .child("Vehicle Model").child("Vehicle Year").child("Other Descriptions");
+        vehicleOtherDataRef = FirebaseDatabase.getInstance().getReference().child("Other Descriptions");
 
         //Button Listener that allows switches to the next activity to
         //view existing registered vehicles
@@ -112,20 +110,26 @@ public class CreateVehicle extends AppCompatActivity {
                 //Assign some value to the child object
                 //Retrieve the input text from the user and store
                 //it in a string variable
-                /**
                 String stringVehicleMake = vehicleMakeEditText.getText().toString().trim();
+
+                //TESTINGvehicleMakeDataRef.push().setValue(stringVehicleMake);
 
                 //Gets the vehicle model from user and stores it in a string
                 String stringVehicleModel = vehicleModelEditText.getText().toString().trim();
 
+                //TESTINGvehicleModelDataRef.push().setValue(stringVehicleModel);
+
                 //Gets the vehicle year from user and stores it in a string
                 String stringVehicleYear = vehicleYearEditText.getText().toString().trim();
+
+                //TESTINGvehicleYearDataRef.push().setValue(stringVehicleYear);
 
                 //Gets other descriptions from user and stores it in a string
                 String stringVehicleOther = vehicleOtherDescEditText.getText().toString().trim();
                 //Saves the string of Other desc. under Other Descriptions
-                vehicleOtherDataRef.push().setValue(stringVehicleOther);
-                **/
+
+                //TESTINGvehicleOtherDataRef.push().setValue(stringVehicleOther);
+
                 //Gets nickname from user and stores it in string variable
                 String stringVehicleNickName = vehicleNickNameEditText.getText().toString().trim();
                 //Saves the string of nickname under Vehicle Nickname
@@ -135,7 +139,7 @@ public class CreateVehicle extends AppCompatActivity {
                     //Uses boolean string method matches() to check if the
                     //make, model, and year inputs are empty, and if do loop until
                     //user makes necessary changes
-                /**
+
                     if (stringVehicleMake.matches("")) {
                         makeToast("WARNING vehicle make is left empty");
                     } else {
@@ -165,7 +169,12 @@ public class CreateVehicle extends AppCompatActivity {
                     } else {
                         makeToast("Created " + stringVehicleNickName);
                     }
-                 **/
+                    if(stringVehicleOther.matches("")) {
+                        vehicleOtherDataRef.push().setValue("Other data is empty....");
+                    } else {
+
+                    }
+
             }
         });
 

@@ -5,6 +5,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -41,12 +42,17 @@ public class MainPaige extends AppCompatActivity {
     private ListView myListView;
 
     //Create a FirebaseDatabase instance
-    private DatabaseReference myDatabase;
+    private DatabaseReference nicknameDatabase;
+    private DatabaseReference makeDatabase;
+    private DatabaseReference modelDatabase;
+    private DatabaseReference yearDatabase;
 
 
-    //Create an array list that will grow when more
-    //vehicles are added to it
-    private ArrayList<String> myVehiclesArrayList = new ArrayList<>();
+    //Create an array list for every data category that will grow when more vehicle info is added to it
+    private ArrayList<String> nicknameArrayList = new ArrayList<>();
+    private ArrayList<String> makeArrayList = new ArrayList<>();
+    private ArrayList<String> modelArrayList = new ArrayList<>();
+    private ArrayList<String> yearArrayList = new ArrayList<>();
 
     //Run this code when the acitivity starts
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +61,18 @@ public class MainPaige extends AppCompatActivity {
         setContentView(R.layout.main_page);
 
         //Point the data base instance to the real time database online
-        myDatabase = FirebaseDatabase.getInstance().getReference();
+        //Make sure that child name matches exactly what data you want to retrieve
+        nicknameDatabase = FirebaseDatabase.getInstance().getReference().child("Nickname");
+        makeDatabase = FirebaseDatabase.getInstance().getReference().child("Vehicle Make");
+        modelDatabase = FirebaseDatabase.getInstance().getReference().child("Vehicle Model");
+        yearDatabase = FirebaseDatabase.getInstance().getReference().child("Vehicle Year");
 
         //Setup the id of the list view according to xml list view
         myListView = findViewById(R.id.vehicle_list1);
 
 
         //Create an array adapter to sync with the array list
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myVehiclesArrayList);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nicknameArrayList);
         //array list "myList" uses setAdapter method to sync with arrayAdapter
         myListView.setAdapter(arrayAdapter);
 
@@ -72,19 +82,104 @@ public class MainPaige extends AppCompatActivity {
         //setAdapter() is a list view method
         myListView.setAdapter(myCustomAdapter);
 
+        yearDatabase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String yearString = dataSnapshot.getValue(String.class);
+                yearArrayList.add(yearString);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        modelDatabase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String modelString = dataSnapshot.getValue(String.class);
+                modelArrayList.add(modelString);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        makeDatabase.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String makeString = dataSnapshot.getValue(String.class);
+                makeArrayList.add(makeString);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         //DatabaseReference instance inherits listener methods that can be called upon
-        myDatabase.addChildEventListener(new ChildEventListener() {
+        nicknameDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             //When a new child is created, this code runs
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String value = dataSnapshot.getValue(String.class);
+                String nicknameString = dataSnapshot.getValue(String.class);
 
-                if (value.matches("")) {
-                    //If the nick name is empty/null do nothing
+                if (nicknameString.matches("")) {
+                    //If the nick name is not used, do nothing
+                    nicknameArrayList.add("No nickname");
                 } else {
                     //If a valid nick name is entered, add it to the array list
-                    myVehiclesArrayList.add(value);
+                    nicknameArrayList.add(nicknameString);
                     //Update the data when it changes
                     arrayAdapter.notifyDataSetChanged();
 
@@ -150,7 +245,7 @@ public class MainPaige extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return myVehiclesArrayList.size();
+            return nicknameArrayList.size();
         }
 
         @Override
@@ -172,8 +267,8 @@ public class MainPaige extends AppCompatActivity {
 
             //After the array list of nick-names has been stored in the array, get the values of
             //the array list through inherited BaseAdapter and set them to the text of the text list
-                textView_name1.setText(myVehiclesArrayList.get(i));
-                textView_name2.setText(myVehiclesArrayList.get(i));
+                textView_name1.setText(nicknameArrayList.get(i));
+                textView_name2.setText(makeArrayList.get(i));
             //Return the view of customlayout.xml file that will
             //be used for the listview in main_paige.xml
             return view;
