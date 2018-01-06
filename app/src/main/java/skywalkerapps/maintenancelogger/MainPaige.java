@@ -268,7 +268,10 @@ public class MainPaige extends AppCompatActivity {
             //After the array list of nick-names has been stored in the array, get the values of
             //the array list through inherited BaseAdapter and set them to the text of the text list
                 textView_name1.setText(nicknameArrayList.get(i));
-                textView_name2.setText(makeArrayList.get(i));
+
+                String fullSentence = makeArrayList.get(i) + " " + modelArrayList.get(i) + " "
+                        + yearArrayList.get(i);
+                textView_name2.setText(fullSentence);
             //Return the view of customlayout.xml file that will
             //be used for the listview in main_paige.xml
             return view;

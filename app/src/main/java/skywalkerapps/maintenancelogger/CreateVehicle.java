@@ -172,12 +172,12 @@ public class CreateVehicle extends AppCompatActivity {
                     if(stringVehicleOther.matches("")) {
                         vehicleOtherDataRef.push().setValue("Other data is empty....");
                     } else {
-
+                        vehicleOtherDataRef.push().setValue(stringVehicleOther);
                     }
-
             }
         });
 
+        finish();
 
 
     }
