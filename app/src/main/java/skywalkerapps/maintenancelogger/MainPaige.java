@@ -1,11 +1,11 @@
 package skywalkerapps.maintenancelogger;
 
 import android.content.Intent;
-import android.media.Image;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,10 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * Main page of the maintenance app
@@ -35,7 +32,7 @@ import java.util.Comparator;
 
 public class MainPaige extends AppCompatActivity {
 
-    private final int IMAGE_GALLERY_REQUEST = 20;
+    private final int IMAGE_GALLERY_REQUEST = 1;
 
     //Declare instances
     //Create a ListView instance
@@ -218,7 +215,7 @@ public class MainPaige extends AppCompatActivity {
         });
 
     }
-
+    /**
     //Method to get image from user's phone
     //Linked to onClick from List View
     public void onImageGalleryClicked(View v) {
@@ -237,6 +234,58 @@ public class MainPaige extends AppCompatActivity {
 
         //we will invoke this activity, and get something back from it
         startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            //if we are here, everything is processed successfully
+            if(requestCode == IMAGE_GALLERY_REQUEST) {
+                //if we are here, we are hearing back from image gallery
+                Uri imageUri = data.getData();
+
+                //the address of the image on the SD card
+                InputStream inputStream;
+
+                //We are getting an input stream, based on the Uri of the image
+                try {
+                    inputStream = getContentResolver().openInputStream(imageUri);
+
+                    //get a bitmap from the stream
+                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                    //Show the image to the user
+                    imgPicture.setImageBitmap(image);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainPaige.this, "Unable to open image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+    **/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == IMAGE_GALLERY_REQUEST && resultCode == RESULT_OK && null != data) {
+            Uri selectedImg = data.getData();
+
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor myCursor = getContentResolver().query(selectedImg, filePathColumn, null, null, null);
+            myCursor.moveToFirst();
+
+            int columnIndex = myCursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = myCursor.getString(columnIndex);
+            myCursor.close();
+
+
+            ImageView imageView = findViewById(R.id.imageView);
+
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+        } else {
+            Toast.makeText(this, "You haven't picked an image", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //Create a BaseAdapter subclass that will synchronize the customlayout.xml display
@@ -260,8 +309,9 @@ public class MainPaige extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
+
             view = getLayoutInflater().inflate(R.layout.customlayout, null);
-            ImageView imageView = view.findViewById(R.id.imageView);
+
             TextView textView_name1 = view.findViewById(R.id.textView2);
             TextView textView_name2 = view.findViewById(R.id.textView3);
 
@@ -269,6 +319,7 @@ public class MainPaige extends AppCompatActivity {
             //the array list through inherited BaseAdapter and set them to the text of the text list
                 textView_name1.setText(nicknameArrayList.get(i));
 
+                //Format the vehicle info by retrieving it from the arrays
                 String fullSentence = makeArrayList.get(i) + " " + modelArrayList.get(i) + " "
                         + yearArrayList.get(i);
                 textView_name2.setText(fullSentence);

@@ -177,8 +177,6 @@ public class CreateVehicle extends AppCompatActivity {
             }
         });
 
-        finish();
-
 
     }
 }
