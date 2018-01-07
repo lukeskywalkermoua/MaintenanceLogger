@@ -21,7 +21,11 @@
         </activity>
         <activity android:name=".MainPaige"
             android:screenOrientation="portrait">
-
+        </activity>
+        <activity android:name=".MainPaigeExtension">
+        </activity>
+        <activity android:name=".ListOfMaintenance"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

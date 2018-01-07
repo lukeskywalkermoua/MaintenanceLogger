@@ -1,5 +1,6 @@
 package skywalkerapps.maintenancelogger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,10 +29,11 @@ public class MainPaige extends AppCompatActivity {
 
 
     //Create an array list for every data category that will grow when more vehicle info is added to it
-    private ArrayList<String> nicknameArrayList = new ArrayList<>();
-    private ArrayList<String> makeArrayList = new ArrayList<>();
-    private ArrayList<String> modelArrayList = new ArrayList<>();
-    private ArrayList<String> yearArrayList = new ArrayList<>();
+    //Protected, so it's only accessible by child class MainPaige Extension
+    protected ArrayList<String> nicknameArrayList = new ArrayList<>();
+    protected ArrayList<String> makeArrayList = new ArrayList<>();
+    protected ArrayList<String> modelArrayList = new ArrayList<>();
+    protected ArrayList<String> yearArrayList = new ArrayList<>();
 
     //Create an array to store the default images of vehicle pictures
     int[] defaultPictureArray = {R.drawable.bmwlogo, R.drawable.chevylogo, R.drawable.dodgelogo, R.drawable.fordlogo, R.drawable.hondalogo
@@ -49,6 +51,7 @@ public class MainPaige extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Set class to implement main_page.xml
         setContentView(R.layout.main_page);
+
 
         //Point the data base instance to the real time database online
         //Make sure that child name matches exactly what data you want to retrieve
@@ -203,7 +206,10 @@ public class MainPaige extends AppCompatActivity {
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainPaige.this, "You clicked a vehicle", Toast.LENGTH_SHORT).show();
+                //When a specific vehicle in the listview is clicked, transition to the List of maintenance
+                //page for that specific vehicle
+                Intent myIntent = new Intent(MainPaige.this, ListOfMaintenance.class);
+                startActivity(myIntent);
             }
         });
 
