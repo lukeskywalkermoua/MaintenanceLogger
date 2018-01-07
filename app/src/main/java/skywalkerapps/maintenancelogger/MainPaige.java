@@ -1,12 +1,6 @@
 package skywalkerapps.maintenancelogger;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,18 +26,6 @@ import java.util.ArrayList;
 
 public class MainPaige extends AppCompatActivity {
 
-    private final int IMAGE_GALLERY_REQUEST = 1;
-
-    //Declare instances
-    //Create a ListView instance
-    private ListView myListView;
-
-    //Create a FirebaseDatabase instance
-    private DatabaseReference nicknameDatabase;
-    private DatabaseReference makeDatabase;
-    private DatabaseReference modelDatabase;
-    private DatabaseReference yearDatabase;
-
 
     //Create an array list for every data category that will grow when more vehicle info is added to it
     private ArrayList<String> nicknameArrayList = new ArrayList<>();
@@ -51,8 +33,19 @@ public class MainPaige extends AppCompatActivity {
     private ArrayList<String> modelArrayList = new ArrayList<>();
     private ArrayList<String> yearArrayList = new ArrayList<>();
 
+    //Create an array to store the default images of vehicle pictures
+    int[] defaultPictureArray = {R.drawable.bmwlogo, R.drawable.chevylogo, R.drawable.dodgelogo, R.drawable.fordlogo, R.drawable.hondalogo
+        ,R.drawable.nissanlogo, R.drawable.volkswagenlogo, R.drawable.toyotalogo, R.drawable.lambopic};
+
     //Run this code when the acitivity starts
     protected void onCreate(Bundle savedInstanceState) {
+
+        ListView myListView;
+        DatabaseReference nicknameDatabase;
+        DatabaseReference makeDatabase;
+        DatabaseReference modelDatabase;
+        DatabaseReference yearDatabase;
+
         super.onCreate(savedInstanceState);
         //Set class to implement main_page.xml
         setContentView(R.layout.main_page);
@@ -215,78 +208,7 @@ public class MainPaige extends AppCompatActivity {
         });
 
     }
-    /**
-    //Method to get image from user's phone
-    //Linked to onClick from List View
-    public void onImageGalleryClicked(View v) {
-        //Invoke the image gallery using an implicit intent
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
 
-
-        //where do we want to find the data?
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-
-        //finaly get URI representation
-        Uri data = Uri.parse(pictureDirectoryPath);
-        //set the data and type, get all image types using asterisk, jpg, png, gif etc.
-        photoPickerIntent.setDataAndType(data, "image/*");
-
-        //we will invoke this activity, and get something back from it
-        startActivityForResult(photoPickerIntent, IMAGE_GALLERY_REQUEST);
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK) {
-            //if we are here, everything is processed successfully
-            if(requestCode == IMAGE_GALLERY_REQUEST) {
-                //if we are here, we are hearing back from image gallery
-                Uri imageUri = data.getData();
-
-                //the address of the image on the SD card
-                InputStream inputStream;
-
-                //We are getting an input stream, based on the Uri of the image
-                try {
-                    inputStream = getContentResolver().openInputStream(imageUri);
-
-                    //get a bitmap from the stream
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
-                    //Show the image to the user
-                    imgPicture.setImageBitmap(image);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainPaige.this, "Unable to open image", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-    **/
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == IMAGE_GALLERY_REQUEST && resultCode == RESULT_OK && null != data) {
-            Uri selectedImg = data.getData();
-
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-            Cursor myCursor = getContentResolver().query(selectedImg, filePathColumn, null, null, null);
-            myCursor.moveToFirst();
-
-            int columnIndex = myCursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = myCursor.getString(columnIndex);
-            myCursor.close();
-
-
-            ImageView imageView = findViewById(R.id.imageView);
-
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-        } else {
-            Toast.makeText(this, "You haven't picked an image", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     //Create a BaseAdapter subclass that will synchronize the customlayout.xml display
     //Everything in this customlayout.xml file will show in the list
@@ -310,6 +232,7 @@ public class MainPaige extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
+            //Sync the CustomAdapter subclass with customlayout.xml
             view = getLayoutInflater().inflate(R.layout.customlayout, null);
 
             TextView textView_name1 = view.findViewById(R.id.textView2);
@@ -323,6 +246,50 @@ public class MainPaige extends AppCompatActivity {
                 String fullSentence = makeArrayList.get(i) + " " + modelArrayList.get(i) + " "
                         + yearArrayList.get(i);
                 textView_name2.setText(fullSentence);
+
+            //Sync with the image view from customlayout.xml
+            ImageView defaultImage = view.findViewById(R.id.imageView);
+            //Generates a picture of the vehicle make on the list view
+            //using a switch statement based on user input
+            //local int variable that signifies the position inside
+            //the array containing the images
+            int arrayInt = 0;
+            //Use a switch statement to check if the vehicle make entered by
+            //the user, matches the picture intended for default use
+            switch (makeArrayList.get(i)) {
+                case "BMW":
+                    arrayInt = 0;
+                    break;
+                case "Chevrolet":
+                    arrayInt = 1;
+                    break;
+                case "Dodge":
+                    arrayInt = 2;
+                    break;
+                case "Ford":
+                    arrayInt = 3;
+                    break;
+                case "Honda":
+                    arrayInt = 4;
+                    break;
+                case "Nissan":
+                    arrayInt = 5;
+                    break;
+                case "Volkswagen":
+                    arrayInt = 6;
+                    break;
+                case "Toyota":
+                    arrayInt = 7;
+                    break;
+                default:
+                    arrayInt = 8;
+                    break;
+            }
+
+            //Set the image view to the drawable inside the array
+            //at position #arrayInt
+            defaultImage.setImageResource(defaultPictureArray[arrayInt]);
+
             //Return the view of customlayout.xml file that will
             //be used for the listview in main_paige.xml
             return view;

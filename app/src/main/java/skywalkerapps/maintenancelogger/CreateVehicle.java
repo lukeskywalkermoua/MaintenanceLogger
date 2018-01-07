@@ -174,6 +174,11 @@ public class CreateVehicle extends AppCompatActivity {
                     } else {
                         vehicleOtherDataRef.push().setValue(stringVehicleOther);
                     }
+
+                    //After the content has been saved in the database, refresh the app page so that the user
+                //can add a new vehicle
+                    Intent refreshIntent = new Intent(CreateVehicle.this, CreateVehicle.class);
+                    startActivity(refreshIntent);
             }
         });
 

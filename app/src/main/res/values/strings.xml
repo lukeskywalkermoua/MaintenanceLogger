@@ -8,6 +8,6 @@
     <string name="other_description">Other descriptions...(optional)</string>
     <string name="listview_title">Vehicle List</string>
     <string name="default_string">Change This Text</string>
-    <string name="create_vehicle_title">Create Your Vehicle</string>
+    <string name="create_vehicle_title">Create Your Vehicles</string>
     <string name="view_list">View Vehicles</string>
 </resources>
