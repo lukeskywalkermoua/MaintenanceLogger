@@ -63,12 +63,6 @@ public class MainPaige extends AppCompatActivity {
         //Setup the id of the list view according to xml list view
         myListView = findViewById(R.id.vehicle_list1);
 
-
-        //Create an array adapter to sync with the array list
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nicknameArrayList);
-        //array list "myList" uses setAdapter method to sync with arrayAdapter
-        myListView.setAdapter(arrayAdapter);
-
         //Create subclass custom adapter that modifies the list view
         CustomAdapter myCustomAdapter = new CustomAdapter();
         //Call method to customize the list view
@@ -173,8 +167,6 @@ public class MainPaige extends AppCompatActivity {
                 } else {
                     //If a valid nick name is entered, add it to the array list
                     nicknameArrayList.add(nicknameString);
-                    //Update the data when it changes
-                    arrayAdapter.notifyDataSetChanged();
 
                 }
             }
